@@ -3,7 +3,7 @@ from subprocess import call as call_subprocess
 from tempfile import NamedTemporaryFile
 
 
-def generate_pdf(html='', url=''):
+def generate_pdf(html='', url='', options=[]):
     # Validate input
     if not html and not url:
         raise ValueError('Must pass HTML or specify a URL')
@@ -23,11 +23,8 @@ def generate_pdf(html='', url=''):
         html_file = NamedTemporaryFile(delete=False, suffix='.html')
         html_file.write(html)
         html_file.close()
-
-        # wkhtmltopdf
-        call_subprocess([wkhtmltopdf_cmd, '-q', html_file.name, pdf_file.name])
-    else:
-        # wkhtmltopdf, using URL
-        call_subprocess([wkhtmltopdf_cmd, '-q', url, pdf_file.name])
+        url = html_file.name
+    
+    call_subprocess([wkhtmltopdf_cmd, '-q'] + options + [url, pdf_file.name])
 
     return pdf_file
