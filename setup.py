@@ -1,4 +1,9 @@
 from setuptools import setup
+import sys
+
+
+scripts = [] if sys.version_info.major == 3 else ['bin/wkhtmltopdf-heroku']
+
 
 setup(
     name='pywkher',
@@ -7,7 +12,7 @@ setup(
     author='Jason Mayfield',
     author_email='jason@codetalk.rs',
     packages=['pywkher', ],
-    scripts=['bin/wkhtmltopdf-heroku'],
+    scripts=scripts,
     description='wkhtmltopdf for Python on Heroku',
     long_description=open('README.rst').read(),
     classifiers=[
