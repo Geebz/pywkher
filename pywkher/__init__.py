@@ -21,7 +21,7 @@ def generate_pdf(html='', url='', options=[]):
     if html:
         # Save the HTML to a temp file
         html_file = NamedTemporaryFile(delete=False, suffix='.html')
-        html_file.write(html)
+        html_file.write(bytes(html,'UTF-8'))
         html_file.close()
         url = html_file.name
     
